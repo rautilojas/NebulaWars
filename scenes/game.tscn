@@ -1,0 +1,91 @@
+[gd_scene load_steps=16 format=3 uid="uid://ds1txev0vbegp"]
+
+[ext_resource type="Texture2D" uid="uid://cvh06l6ckm3hg" path="res://assets/textures/bg.png" id="1_x5du2"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_yo6cu"]
+[ext_resource type="Script" path="res://scripts/parallax_background.gd" id="2_dvxjn"]
+[ext_resource type="PackedScene" uid="uid://bpd8ostrmwn2q" path="res://scenes/player.tscn" id="2_io6ud"]
+[ext_resource type="Script" path="res://scripts/screen_debug.gd" id="3_eac1a"]
+[ext_resource type="PackedScene" uid="uid://sx8ashtsf5g4" path="res://scenes/enemy_spawner.tscn" id="4_pwscd"]
+[ext_resource type="PackedScene" uid="uid://dolkvgdo4fak7" path="res://scenes/powerups_spawner.tscn" id="6_y8j0t"]
+[ext_resource type="PackedScene" uid="uid://bg8vefe5r7bwu" path="res://scenes/hud.tscn" id="7_2eiyq"]
+[ext_resource type="AudioStream" uid="uid://uugb4kamip7n" path="res://assets/audio/sfx_shieldUp.ogg" id="8_qpy1u"]
+[ext_resource type="AudioStream" uid="uid://d0bxs5qy421vy" path="res://assets/audio/sfx_laser2.wav" id="9_nfaal"]
+[ext_resource type="AudioStream" uid="uid://drg5p0jprjuxf" path="res://assets/audio/explode.wav" id="10_j7uxv"]
+[ext_resource type="AudioStream" uid="uid://bodr88q5xfpjn" path="res://assets/audio/sfx_shieldDown.ogg" id="11_s60t8"]
+[ext_resource type="AudioStream" uid="uid://bp105p6ftymub" path="res://assets/audio/sfx_lose.ogg" id="12_uy5aa"]
+[ext_resource type="AudioStream" uid="uid://7r47nkfl17s4" path="res://assets/audio/Phat Phrog Studios - Bleak Cinematics.mp3" id="14_eefx1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikc56"]
+size = Vector2(84, 911)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_yo6cu")
+
+[node name="parallax_background" type="ParallaxBackground" parent="."]
+script = ExtResource("2_dvxjn")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="parallax_background"]
+motion_mirroring = Vector2(1000, 0)
+
+[node name="background" type="TextureRect" parent="parallax_background/ParallaxLayer"]
+offset_left = -197.0
+offset_top = -91.0
+offset_right = 1423.0
+offset_bottom = 819.0
+texture = ExtResource("1_x5du2")
+stretch_mode = 1
+
+[node name="powerups_spawner" parent="." instance=ExtResource("6_y8j0t")]
+
+[node name="player" parent="." instance=ExtResource("2_io6ud")]
+position = Vector2(49, 365)
+
+[node name="enemy_spawner" parent="." instance=ExtResource("4_pwscd")]
+position = Vector2(0, -8)
+
+[node name="deathzone" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deathzone"]
+position = Vector2(-158, 363)
+shape = SubResource("RectangleShape2D_ikc56")
+
+[node name="ui" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="hud" parent="ui" instance=ExtResource("7_2eiyq")]
+
+[node name="screen_debug" type="CanvasLayer" parent="."]
+layer = 128
+script = ExtResource("3_eac1a")
+
+[node name="Label" type="Label" parent="screen_debug"]
+offset_left = 1197.0
+offset_top = 28.0
+offset_right = 1237.0
+offset_bottom = 51.0
+
+[node name="sound_fx" type="Node" parent="."]
+
+[node name="enemy_hit_sound" type="AudioStreamPlayer" parent="sound_fx"]
+stream = ExtResource("8_qpy1u")
+
+[node name="laser" type="AudioStreamPlayer" parent="sound_fx"]
+stream = ExtResource("9_nfaal")
+
+[node name="explode" type="AudioStreamPlayer" parent="sound_fx"]
+stream = ExtResource("10_j7uxv")
+
+[node name="energy_depleted" type="AudioStreamPlayer" parent="sound_fx"]
+stream = ExtResource("11_s60t8")
+
+[node name="player_hit" type="AudioStreamPlayer" parent="sound_fx"]
+stream = ExtResource("12_uy5aa")
+
+[node name="music" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="music"]
+stream = ExtResource("14_eefx1")
+volume_db = -5.0
+autoplay = true

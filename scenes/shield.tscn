@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://h81bi7xxqqfl"]
+
+[ext_resource type="Script" path="res://scenes/shield.gd" id="1_pquj7"]
+[ext_resource type="Texture2D" uid="uid://c4sg1rci7v5b1" path="res://assets/textures/shield_bronze.png" id="1_qi1lv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u55nn"]
+size = Vector2(30, 30)
+
+[node name="shield" type="Area2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 16
+script = ExtResource("1_pquj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qi1lv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_u55nn")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

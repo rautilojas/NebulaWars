@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://7r47nkfl17s4"
+path="res://.godot/imported/Phat Phrog Studios - Bleak Cinematics.mp3-2409452dbf362bd8a512c79baa55742a.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Phat Phrog Studios - Bleak Cinematics.mp3"
+dest_files=["res://.godot/imported/Phat Phrog Studios - Bleak Cinematics.mp3-2409452dbf362bd8a512c79baa55742a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
